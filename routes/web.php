@@ -3,15 +3,17 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PhoneNumberController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,7 +44,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/contacts/{contact_id}/phone-numbers/{phone_number}', [PhoneNumberController::class, 'destroy'])
     ->name('phone-numbers.destroy');
 
+    Route::resource('templates', TemplateController::class);
+
+    Route::get('get-session-api', [DashboardController::class, 'createSession'])->name('dashboard.createSession');
+    Route::get('get-qrcode-wa', [DashboardController::class, 'generateQrcodeWa'])->name('dashboard.generateQrcodeWa');
+
+    
+    
 });
+
+// Route::post('/create-client-whatsapp', [DashboardController::class, 'createClinetWA'])
+//         ->name('create-client-whatsapp.createClient');
+
 
 
 

@@ -108,7 +108,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Phone Numbers for <span id="contactName"></span></h5>
+                <h5 class="modal-title">Add Phone Numbers <span id="contactName"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body" id="phoneNumbersContent">
@@ -150,9 +150,6 @@
                         modalBody.innerHTML = html;
                         feather.replace(); // render ulang icon feather
                     });
-
-                const modal = new bootstrap.Modal(document.getElementById('phoneNumberModal'));
-                modal.show();
             });
         });
     });

@@ -21,8 +21,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-typography.html">
+            <li class="sidebar-item {{ request()->routeIs('templates.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('templates.index') }}">
                     <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Templates</span>
                 </a>
             </li>
