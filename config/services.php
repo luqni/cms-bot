@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'node_api' => [
+        'base_url'  => env('NODE_API_URL', 'http://localhost:3000'),
+        'timeout'   => 120,
+        'username'  => env('USERNAME_API'),
+        'password'  => env('PASSWORD_API'),
+        'api_key'   => env('API_KEY'),
+    ],
+
+
 ];
