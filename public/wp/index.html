@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>QuickStart</title>
+  <title>Index - QuickStart Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -16,16 +16,16 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  
+
   <!-- Vendor CSS Files -->
-  <link href="{{ asset('wp/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('wp/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('wp/assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{ asset('wp/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('wp/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="{{ asset('wp/assets/css/main.css') }}" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: QuickStart
@@ -42,17 +42,17 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="{{ asset('wp/assets/img/logo.png') }}" alt="">
+        <img src="assets/img/logo.png" alt="">
         <h1 class="sitename">QuickStart</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="{{ url('/') }}#hero" class="active">Home</a></li>
-          <li><a href="{{ url('/') }}#about">About</a></li>
-          <li><a href="{{ url('/') }}#features">Features</a></li>
-          <li><a href="{{ url('/') }}#services">Services</a></li>
-          <li><a href="{{ url('/') }}#pricing">Pricing</a></li>
+          <li><a href="index.html#hero" class="active">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -70,16 +70,12 @@
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li>
-          <li><a href="{{ url('/') }}#contact">Contact</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      @auth
-        <a class="btn-getstarted" href="{{ url('/dashboard') }}">Dashboard</a>
-      @else
-        <a class="btn-getstarted" href="{{ url('/') }}#about">Get Started</a>
-      @endauth
-      
+
+      <a class="btn-getstarted" href="index.html#about">Get Started</a>
 
     </div>
   </header>
@@ -89,17 +85,17 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section">
       <div class="hero-bg">
-        <img src="{{ asset('wp/assets/img/hero-bg-light.webp') }}" alt="">
+        <img src="assets/img/hero-bg-light.webp" alt="">
       </div>
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
           <h1 data-aos="fade-up">Welcome to <span>QuickStart</span></h1>
           <p data-aos="fade-up" data-aos-delay="100">Quickly start your project now and set the stage for success<br></p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="{{ route('login') }}" class="btn-get-started">Login</a>
-            <a href="{{ route('register') }}" class="glightbox btn-watch-video d-flex align-items-center">Register</a>
+            <a href="#about" class="btn-get-started">Get Started</a>
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
-          <img src="{{ asset('wp/assets/img/hero-services-img.webp') }}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+          <img src="assets/img/hero-services-img.webp" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
 
@@ -168,23 +164,21 @@
               <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
               <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
             </ul>
-            <a href="{{ route('login') }}" class="read-more"><span>Login</span><i class="bi bi-arrow-right"></i></a>
-            <a href="{{ route('register') }}" class="read-more"><span>Register</span><i class="bi bi-arrow-right"></i></a>
+            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-4">
               <div class="col-lg-6">
-             
-                <img src="{{ asset('wp/assets/img/about-company-1.jpg') }}" class="img-fluid" alt="">
+                <img src="assets/img/about-company-1.jpg" class="img-fluid" alt="">
               </div>
               <div class="col-lg-6">
                 <div class="row gy-4">
                   <div class="col-lg-12">
-                    <img src="{{ asset('wp/assets/img/about-company-2.jpg') }}" class="img-fluid" alt="">
+                    <img src="assets/img/about-company-2.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="col-lg-12">
-                    <img src="{{ asset('wp/assets/img/about-company-3.jpg') }}" class="img-fluid" alt="">
+                    <img src="assets/img/about-company-3.jpg" class="img-fluid" alt="">
                   </div>
                 </div>
               </div>
@@ -205,27 +199,27 @@
         <div class="row gy-4">
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-1.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-2.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-4.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-5.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('wp/assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
+            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
         </div>
@@ -294,15 +288,15 @@
             <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
               <div class="tab-pane fade active show" id="features-tab-1">
-                <img src="{{ asset('wp/assets/img/tabs-1.jpg') }}" alt="" class="img-fluid">
+                <img src="assets/img/tabs-1.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-2">
-                <img src="{{ asset('wp/assets/img/tabs-2.jpg') }}" alt="" class="img-fluid">
+                <img src="assets/img/tabs-2.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-3">
-                <img src="{{ asset('wp/assets/img/tabs-3.jpg') }}" alt="" class="img-fluid">
+                <img src="assets/img/tabs-3.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
             </div>
 
@@ -322,7 +316,7 @@
         <div class="row gy-4 justify-content-between features-item">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="{{ asset('wp/assets/img/features-1.jpg') }}" class="img-fluid" alt="">
+            <img src="assets/img/features-1.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
@@ -359,7 +353,7 @@
           </div>
 
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="{{ asset('wp/assets/img/features-2.jpg') }}" class="img-fluid" alt="">
+            <img src="assets/img/features-2.jpg" class="img-fluid" alt="">
           </div>
 
         </div><!-- Features Item -->
@@ -503,7 +497,7 @@
           </div>
 
           <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="{{ asset('wp/assets/img/features-3.jpg') }}" alt="">
+            <img src="assets/img/features-3.jpg" alt="">
           </div>
 
         </div>
@@ -711,7 +705,7 @@
                   Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="{{ asset('wp/assets/img/testimonials/testimonials-1.jpg') }}" class="testimonial-img" alt="">
+                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
                   <h3>Saul Goodman</h3>
                   <h4>Ceo &amp; Founder</h4>
                 </div>
@@ -727,7 +721,7 @@
                   Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="{{ asset('wp/assets/img/testimonials/testimonials-2.jpg') }}" class="testimonial-img" alt="">
+                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
                   <h3>Sara Wilsson</h3>
                   <h4>Designer</h4>
                 </div>
@@ -743,7 +737,7 @@
                   Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="{{ asset('wp/assets/img/testimonials/testimonials-3.jpg') }}" class="testimonial-img" alt="">
+                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
                   <h3>Jena Karlis</h3>
                   <h4>Store Owner</h4>
                 </div>
@@ -759,7 +753,7 @@
                   Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="{{ asset('wp/assets/img/testimonials/testimonials-4.jpg') }}" class="testimonial-img" alt="">
+                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
                   <h3>Matt Brandon</h3>
                   <h4>Freelancer</h4>
                 </div>
@@ -775,7 +769,7 @@
                   Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="{{ asset('wp/assets/img/testimonials/testimonials-5.jpg') }}" class="testimonial-img" alt="">
+                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
                   <h3>John Larson</h3>
                   <h4>Entrepreneur</h4>
                 </div>
@@ -951,16 +945,15 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
-
   <!-- Vendor JS Files -->
-  <script src="{{ asset('wp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('wp/assets/vendor/php-email-form/validate.js') }}"></script>
-  <script src="{{ asset('wp/assets/vendor/aos/aos.js') }}"></script>
-  <script src="{{ asset('wp/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('wp/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="{{ asset('wp/assets/js/main.js') }}"></script>
+  <script src="assets/js/main.js"></script>
 
 </body>
 

@@ -156,13 +156,12 @@
         }
 
         function reStartSession() {
-            $('#loadingSpinner').show();
 
             $.ajax({
             url: "{{ route('dashboard.reStartSession') }}",   // ganti dengan URL API-mu
             method: 'GET',
             success: function(response) {
-                if(response.status == 200){
+                if(response.status == 201){
                     location.reload();
                 }
                
@@ -170,11 +169,6 @@
             error: function(xhr, status, error) {
                 console.error('Error:', error);
             },
-
-            complete: function() {
-            // Ini dijalankan setelah success/error
-            $('#loadingSpinner').hide();
-            }
 
             });
         }

@@ -113,6 +113,7 @@ class DashboardController extends Controller
 
     public function reStartSession(Request $request)
     {
+        dd('masuuuk');
         $email = auth()->user()->email;
         
         $response = $this->nodeApi->post('/api/sessions/'.$email.'/restart');

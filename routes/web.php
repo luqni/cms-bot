@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PhoneNumberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //Menu Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -23,35 +25,36 @@ Route::middleware('auth')->group(function () {
     Route::resource('contacts', ContactController::class)->only(['index', 'store', 'destroy']);
     Route::get('contacts/{contact}/phone-numbers', [ContactController::class, 'phoneNumbers']);
 
+    //Menu Kontak
     // Menampilkan form import Excel
     Route::get('/contacts/{contact_id}/phone-numbers/import', [PhoneNumberController::class, 'importForm'])
         ->name('phone-numbers.import');
-
     // Memproses file Excel yang di-upload
     Route::post('/contacts/{contact_id}/phone-numbers/import', [PhoneNumberController::class, 'importStore'])
         ->name('phone-numbers.import.store');
-
     // Menampilkan form tambah manual
     Route::get('/contacts/{contact_id}/phone-numbers/create', [PhoneNumberController::class, 'create'])
         ->name('phone-numbers.create');
-
     // Simpan nomor baru dari form manual
     Route::post('/contacts/{contact_id}/phone-numbers', [PhoneNumberController::class, 'store'])
         ->name('phone-numbers.store');
-
     Route::get('edit/{phone_number}', [PhoneNumberController::class, 'edit'])->name('phone-numbers.edit');
     Route::put('{phone_number}', [PhoneNumberController::class, 'update'])->name('phone-numbers.update');
     Route::delete('/contacts/{contact_id}/phone-numbers/{phone_number}', [PhoneNumberController::class, 'destroy'])
     ->name('phone-numbers.destroy');
 
+    //Menu Template
     Route::resource('templates', TemplateController::class);
 
+    //Menu Dashboard
     Route::get('get-session-api', [DashboardController::class, 'createSession'])->name('dashboard.createSession');
     Route::get('get-qrcode-wa', [DashboardController::class, 'generateQrcodeWa'])->name('dashboard.generateQrcodeWa');
     Route::get('start-session', [DashboardController::class, 'startSession'])->name('dashboard.startSession');
     Route::get('restart-session', [DashboardController::class, 'reStartSession'])->name('dashboard.reStartSession');
     
-    
+    //Menu Messages
+    Route::resource('messages', MessageController::class);
+    Route::post('direct-message', [MessageController::class, 'directMessage'])->name('messages.directMessage');
     
 });
 
