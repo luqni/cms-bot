@@ -75,7 +75,7 @@
 
 <!-- Modal Tambah/Edit Template -->
 <div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form id="templateForm" method="POST">
             @csrf
             <input type="hidden" name="_method" id="formMethod" value="POST">

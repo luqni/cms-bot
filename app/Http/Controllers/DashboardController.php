@@ -65,7 +65,7 @@ class DashboardController extends Controller
         ];
 
         $response = $this->nodeApi->post('/api/sessions', $payload);
-
+        
         $createdSession = [
             'status' => $response->status(),
             'body' => $response->json()
@@ -80,13 +80,47 @@ class DashboardController extends Controller
         $email = auth()->user()->email;
         
         $response = $this->nodeApi->get('/api/'.$email.'/auth/qr');
+        
+        // Ambil konten gambar dari response
+        $imageContent = $response->body(); // <-- ini binary PNG
+
+        // Encode ke base64
+        $base64 = base64_encode($imageContent);
+
+        // Buat data URI (agar bisa langsung ditampilkan di img src)
+        $dataUri = 'data:image/png;base64,' . $base64;
+
+        return response()->json([
+            'status' => $response->status(),
+            'qr_code' => $dataUri
+        ]);
+    }
+
+
+    public function startSession(Request $request)
+    {
+        $email = auth()->user()->email;
+        
+        $response = $this->nodeApi->post('/api/sessions/'.$email.'/start');
 
         $generateQrcode = [
             'status' => $response->status(),
             'body' => $response->json()
         ];
+
+        return response()->json($generateQrcode);
+    }
+
+    public function reStartSession(Request $request)
+    {
+        $email = auth()->user()->email;
         
-        dd($generateQrcode);
+        $response = $this->nodeApi->post('/api/sessions/'.$email.'/restart');
+
+        $generateQrcode = [
+            'status' => $response->status(),
+            'body' => $response->json()
+        ];
 
         return response()->json($generateQrcode);
     }

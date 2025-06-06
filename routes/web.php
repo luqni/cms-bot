@@ -48,7 +48,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('get-session-api', [DashboardController::class, 'createSession'])->name('dashboard.createSession');
     Route::get('get-qrcode-wa', [DashboardController::class, 'generateQrcodeWa'])->name('dashboard.generateQrcodeWa');
-
+    Route::get('start-session', [DashboardController::class, 'startSession'])->name('dashboard.startSession');
+    Route::get('restart-session', [DashboardController::class, 'reStartSession'])->name('dashboard.reStartSession');
+    
     
     
 });
