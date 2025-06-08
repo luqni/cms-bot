@@ -38,6 +38,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        
                     </table>
                 </div>
             </div>
@@ -105,24 +106,32 @@
     }, 5000); // 5000ms = 5 detik
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.btn-phone-number').forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                const contactId = this.dataset.id;
-                const contactName = this.dataset.name;
+        const modal = document.getElementById('phoneNumberModal');
+        const modalBody = document.getElementById('phoneNumbersContent');
+        const contactNameEl = document.getElementById('contactName');
 
-                document.getElementById('contactName').textContent = contactName;
-                const modalBody = document.getElementById('phoneNumbersContent');
+        // Delegasi event ke document atau ke #contacts-table
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-phone-number')) {
+                e.preventDefault();
+                const button = e.target.closest('.btn-phone-number');
+                const contactId = button.dataset.id;
+                const contactName = button.dataset.name;
+
+                contactNameEl.textContent = contactName;
                 modalBody.innerHTML = '<div class="text-center">Loading...</div>';
 
-                // Fetch data dari route Laravel (pastikan route dibuat)
                 fetch(`/contacts/${contactId}/phone-numbers`)
                     .then(res => res.text())
                     .then(html => {
                         modalBody.innerHTML = html;
-                        feather.replace(); // render ulang icon feather
+                        feather.replace();
                     });
-            });
+
+                // trigger modal (optional jika Bootstrap tidak otomatis buka)
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+            }
         });
     });
 

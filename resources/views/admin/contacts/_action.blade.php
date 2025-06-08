@@ -3,7 +3,8 @@
 </a>
 
 <a href="#" class="btn btn-sm btn-success btn-phone-number" data-bs-toggle="modal" data-bs-target="#phoneNumberModal"
-    data-id="{{ $contact->id }}" data-name="{{ $contact->name }}">
+    data-id="{{ $contact->id }}"
+    data-name="{{ $contact->name }}">
     <i data-feather="phone" class="me-1"></i> Phone Number
 </a>
 
