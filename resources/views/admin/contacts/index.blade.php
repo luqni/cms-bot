@@ -133,6 +133,17 @@
                 modalInstance.show();
             }
         });
+
+        // Hapus backdrop jika modal ditutup
+        const modalEl = document.getElementById('phoneNumberModal');
+        modalEl.addEventListener('hidden.bs.modal', function () {
+            // Bersihkan semua backdrop
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
+            // Bersihkan efek scroll lock di body
+            document.body.classList.remove('modal-open');
+            document.body.style = '';
+        });
     });
 
     document.addEventListener('DOMContentLoaded', function () {
