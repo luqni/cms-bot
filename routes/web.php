@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     // Menampilkan form tambah manual
     Route::get('/contacts/{contact_id}/phone-numbers/create', [PhoneNumberController::class, 'create'])
         ->name('phone-numbers.create');
+    Route::get('/admin/contacts/datatable', [ContactController::class, 'datatable'])->name('contacts.datatable');
+
     // Simpan nomor baru dari form manual
     Route::post('/contacts/{contact_id}/phone-numbers', [PhoneNumberController::class, 'store'])
         ->name('phone-numbers.store');
@@ -47,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
     //Menu Template
     Route::resource('templates', TemplateController::class);
+    Route::get('/admin/templates/datatable', [TemplateController::class, 'datatable'])->name('templates.datatable');
 
     //Menu Dashboard
     Route::get('get-session-api', [DashboardController::class, 'createSession'])->name('dashboard.createSession');
@@ -60,6 +63,7 @@ Route::middleware('auth')->group(function () {
 
     //Menu Transactions
     Route::resource('transactions', TransactionController::class);
+    Route::get('/admin/transactions/datatable', [TransactionController::class, 'datatable'])->name('transactions.datatable');
     
 });
 

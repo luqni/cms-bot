@@ -24,7 +24,7 @@
 
                         <h5 class="card-title mb-0">List Transactions</h5>
                     </div>
-                    <table class="table table-hover my-0">
+                    <table id="transactions-table" class="table table-hover my-0">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -35,38 +35,6 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        @forelse ($data['list_transaksi'] as $transaksi)
-                            <tr>
-                                <td>{{ $transaksi['id'] }}</td>
-                                <td>{{ $transaksi['nomor_hp'] }}</td>
-                                <td>{{ $transaksi['deskripsi'] }}</td>
-                                <td>{{ $transaksi['total'] }}</td>
-                                <td>{{ $transaksi['keterangan'] }}</td>
-                                <td>
-                                    <a href="{{ route('transactions.edit', $transaksi['id']) }}" class="btn btn-sm btn-secondary">
-                                        <i data-feather="edit-3" class="me-1"></i> Edit
-                                    </a>
-
-                                    <a href="{{ route('transactions.edit', $transaksi['id']) }}" class="btn btn-sm btn-success">
-                                        <i data-feather="check-circle" class="me-1"></i> Confirm
-                                    </a>
-
-                                    <form action="{{ route('transactions.destroy', $transaksi['id']) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus kontak ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i data-feather="trash-2" class="me-1"></i> Delete
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">Tidak ada Transaksi.</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -99,5 +67,27 @@
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#transactions-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("transactions.datatable") }}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'nomor_hp', name: 'nomor_hp' },
+                { data: 'deskripsi', name: 'deskripsi' },
+                { data: 'total', name: 'total' },
+                { data: 'keterangan', name: 'keterangan' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
+        });
+    });
+</script>
 
 @endsection

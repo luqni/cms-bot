@@ -29,47 +29,15 @@
 
                         <h5 class="card-title mb-0">List Contact</h5>
                     </div>
-                    <table class="table table-hover my-0">
+                    <table id="contacts-table" class="table table-hover my-0">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th class="d-none d-xl-table-cell">Name</th>
-                                <th class="d-none d-xl-table-cell">Count Number</th>
+                                <th>Name</th>
+                                <th>Count Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        @forelse ($contacts as $contact)
-                            <tr>
-                                <td>{{ $contact->id }}</td>
-                                <td>{{ $contact->name }}</td>
-                                <td>{{ $contact->phone_numbers_count }}</td>
-                                <td>
-                                <a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-sm btn-warning">
-                                    <i data-feather="edit-3" class="me-1"></i> Edit
-                                </a>
-
-                                <a href="#" class="btn btn-sm btn-success btn-phone-number" data-bs-toggle="modal" data-bs-target="#phoneNumberModal"
-                                    data-id="{{ $contact->id }}"
-                                    data-name="{{ $contact->name }}">
-                                    <i data-feather="phone" class="me-1"></i> Phone Number
-                                </a>
-
-                                <form action="{{ route('contacts.destroy', $contact->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus kontak ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i data-feather="trash-2" class="me-1"></i> Delete
-                                    </button>
-                                </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">Tidak ada kontak.</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -118,6 +86,10 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 <script>
     // Auto-close alert setelah 5 detik
     setTimeout(() => {
@@ -151,6 +123,20 @@
                         feather.replace(); // render ulang icon feather
                     });
             });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#contacts-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("contacts.datatable") }}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'phone_numbers_count', name: 'phoneNumbers', searchable: false },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
         });
     });
 

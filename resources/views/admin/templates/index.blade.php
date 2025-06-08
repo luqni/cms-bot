@@ -29,7 +29,7 @@
 
                         <h5 class="card-title mb-0">List Contact</h5>
                     </div>
-                    <table class="table table-hover my-0">
+                    <table id="templates-table" class="table table-hover my-0">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -37,34 +37,6 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        @forelse ($templates as $template)
-                            <tr>
-                                <td>{{ $template->id }}</td>
-                                <td>{{ $template->name }}</td>
-                                <td>
-                                <button class="btn btn-primary btn-sm"
-                                        onclick="openEditTemplateModal({{ $template->id }})">
-                                        <i data-feather="edit-3" class="me-1"></i> Edit
-                                </button>
-
-                                <form action="{{ route('templates.destroy', $template->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus kontak ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i data-feather="trash-2" class="me-1"></i> Delete
-                                    </button>
-                                </form>
-                                </td>
-                                <input type="hidden" name="content" id="content_{{$template->id}}" value="{{ addslashes($template->content) }}">
-                                <input type="hidden" name="name" id="name_{{$template->id}}" value="{{ $template->name }}">
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">Tidak ada template.</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -104,6 +76,9 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 <script>
     
     // Auto-close alert setelah 5 detik
@@ -153,6 +128,19 @@
         // Tampilkan modal
         $('#templateModal').modal('show');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#templates-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("templates.datatable") }}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
+        });
+    });
 
 </script>
 @endsection
