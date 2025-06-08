@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>QuickStart</title>
+  <title>Di Layani AI</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -43,7 +43,7 @@
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <img src="{{ asset('wp/assets/img/logo.png') }}" alt="">
-        <h1 class="sitename">QuickStart</h1>
+        <h1 class="sitename">LAYANI-AI</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -93,7 +93,7 @@
       </div>
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
-          <h1 data-aos="fade-up">Welcome to <span>QuickStart</span></h1>
+          <h1 data-aos="fade-up">Welcome to <span>Layani AI</span></h1>
           <p data-aos="fade-up" data-aos-delay="100">Quickly start your project now and set the stage for success<br></p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="{{ route('login') }}" class="btn-get-started">Login</a>

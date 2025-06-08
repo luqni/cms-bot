@@ -33,6 +33,13 @@
                     <span class="align-middle">Messages</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('transactions.index') }}">
+                    <i class="align-middle" data-feather="list"></i> 
+                    <span class="align-middle">Transaction</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

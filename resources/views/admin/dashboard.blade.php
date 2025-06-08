@@ -33,9 +33,9 @@
                                             </div>
                                         </div>
                                         <div class="mb-0">
-                                            @if($getSessions['status'] == 200)
-                                                @if($getSessions['body']['status'] == 'SCAN_QR_CODE')
-                                                    <h2>{{ $getSessions['body']['status'] }}</h2>
+                                            @if($data['session']['status'] == 200)
+                                                @if($data['session']['body']['status'] == 'SCAN_QR_CODE')
+                                                    <h2>{{ $data['session']['body']['status'] }}</h2>
                                                     <hr/>
                                                     <label>Silahkan Klik Scan QR Code untuk memulai session</label>
                                                     <hr/>
@@ -46,8 +46,8 @@
                                                     <div class="image-qrcode"></div>
                                                     <!-- <img id="qrImage" src="" alt="QR Code" /> -->
                                                 @endif
-                                                @if($getSessions['body']['status'] == 'STOPPED')
-                                                    <h2 style="color:red;">{{ $getSessions['body']['status'] }}</h2>
+                                                @if($data['session']['body']['status'] == 'STOPPED')
+                                                    <h2 style="color:red;">{{ $data['session']['body']['status'] }}</h2>
                                                     <hr/>
                                                     <label>Session anda berhenti silahkan click Start untuk memulai kembali</label>
                                                     <hr/>
@@ -55,8 +55,8 @@
                                                         START
                                                     </button>
                                                 @endif
-                                                @if($getSessions['body']['status'] == 'FAILED')
-                                                    <h2 style="color:red;">{{ $getSessions['body']['status'] }}</h2>
+                                                @if($data['session']['body']['status'] == 'FAILED')
+                                                    <h2 style="color:red;">{{ $data['session']['body']['status'] }}</h2>
                                                     <hr/>
                                                     <label>Session Anda Gagal di Buat Silahkan Klik Tombol Restart</label>
                                                     <hr/>
@@ -64,14 +64,14 @@
                                                         RE-START
                                                     </button>
                                                 @endif
-                                                @if($getSessions['body']['status'] == 'WORKING')
-                                                    <h2 style="color:green;">{{ $getSessions['body']['status'] }}</h2>
+                                                @if($data['session']['body']['status'] == 'WORKING')
+                                                    <h2 style="color:green;">{{ $data['session']['body']['status'] }}</h2>
                                                     <hr/>
                                                     <label>WhatsApp Anda Sudah Terhubung... </label>
                                                     <hr/>
                                                 @endif
-                                                @if($getSessions['body']['status'] == 'STARTING')
-                                                    <h2 style="color:green;">{{ $getSessions['body']['status'] }}</h2>
+                                                @if($data['session']['body']['status'] == 'STARTING')
+                                                    <h2 style="color:green;">{{ $data['session']['body']['status'] }}</h2>
                                                     <hr/>
                                                     <label>Session Anda Terbuat Silahkan Klik Tombol Refresh</label>
                                                     <hr/>
@@ -80,8 +80,8 @@
                                                     </button>
                                                 @endif
                                             @endif
-                                            @if($getSessions['status'] == 404)
-                                                <h2 style="color:red;">{{ $getSessions['body']['message'] }}</h2>
+                                            @if($data['session']['status'] == 404)
+                                                <h2 style="color:red;">{{ $data['session']['body']['message'] }}</h2>
                                                 <hr/>
                                                 <label>Session Tidak Tersedia, Silahkan Buat Session Baru dengan Klik Buat Session</label>
                                                 <hr/>

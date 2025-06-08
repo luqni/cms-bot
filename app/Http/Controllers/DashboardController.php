@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\NodeApiService;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -18,6 +19,9 @@ class DashboardController extends Controller
 
     public function index()
     {
+        
+
+        $data = [];
         
         // $data = [
         //     'email' => auth()->user()->email
@@ -32,8 +36,22 @@ class DashboardController extends Controller
             'body' => $response->json()
         ];
 
-        // dd($getSessions);
-        return view('admin.dashboard', compact('getSessions'));
+        $data['session'] = $getSessions;
+
+        $responseSupabase = Http::withHeaders([
+            'apikey' => env('SUPABASE_ANON_KEY'),
+            'Authorization' => 'Bearer ' . env('SUPABASE_ANON_KEY'),
+        ])->get(env('SUPABASE_URL') . '/rest/v1/transaction_detail', [
+            'select' => '*'
+        ]);
+
+        if($responseSupabase){
+            $transaksi = $responseSupabase->json();
+            $data['total_transaksi'] = count($transaksi);
+        }
+        
+
+        return view('admin.dashboard', compact('data'));
     }
 
     public function createSession(){

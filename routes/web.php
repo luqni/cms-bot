@@ -6,6 +6,8 @@ use App\Http\Controllers\PhoneNumberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\TransactionController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -55,6 +57,9 @@ Route::middleware('auth')->group(function () {
     //Menu Messages
     Route::resource('messages', MessageController::class);
     Route::post('direct-message', [MessageController::class, 'directMessage'])->name('messages.directMessage');
+
+    //Menu Transactions
+    Route::resource('transactions', TransactionController::class);
     
 });
 
