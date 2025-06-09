@@ -38,7 +38,8 @@ class TransactionController extends Controller
             'apikey' => env('SUPABASE_ANON_KEY'),
             'Authorization' => 'Bearer ' . env('SUPABASE_ANON_KEY'),
         ])->get(env('SUPABASE_URL') . '/rest/v1/transaction_detail', [
-            'select' => '*'
+            'select' => '*',
+            'session' => 'eq.'.auth()->user()->email
         ]);
 
         if($responseSupabase){
