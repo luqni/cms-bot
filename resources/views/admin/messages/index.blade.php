@@ -3,7 +3,11 @@
 @section('title', 'Messages')
 
 @section('content')
-
+<style>
+    table.dataTable {
+    width: 100% !important;
+}
+</style>
 <main class="content">
     <div class="container-fluid p-0">
 
@@ -55,7 +59,7 @@
                         </button>
                 </div>
                 <div class="tab-pane fade" id="nav-2" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <p><strong>This is feature on Progress.</strong></p>
+                    @include('admin.messages.blast_message')
                 </div>
                 <div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <p><strong>This is feature on Progress.</strong></p>
@@ -68,7 +72,24 @@
 </main>
 <!-- jQuery (wajib untuk Select2) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 <script>
+
+    // Auto-close alert setelah 5 detik
+    setTimeout(() => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            // Hapus class 'show' untuk memicu animasi fade
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+
+            // Tunggu animasi selesai, lalu remove dari DOM
+            setTimeout(() => alert.remove(), 300);
+        }
+    }, 5000); // 5000ms = 5 detik
+
     $(document).ready(function() {
         $('#mySelect').select2({
             placeholder: "Pilih kontak...",
@@ -113,6 +134,22 @@
         });
 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#campaigns-table').DataTable().destroy(); // jika perlu reset
+        $('#campaigns-table').DataTable({
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+    responsive: true, // jika kamu ingin tabel responsif
+            ajax: '{{ route("messages.campaignDatatable") }}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'nama', name: 'nama' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
+        });
+    });
 </script>
 
 @endsection

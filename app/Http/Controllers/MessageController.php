@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\PhoneNumber;
+use App\Models\Campaign;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\NodeApiService;
+use Yajra\DataTables\Facades\DataTables;
 
 class MessageController extends Controller
 {
@@ -30,7 +33,16 @@ class MessageController extends Controller
             $data['phoneNumbers'] = $phoneNumbers;
         }
 
-        // dd($data);
+        $contacts = Contact::where('user_id', Auth::id())->get();
+        if($contacts){
+            $data['contacts'] = $contacts;
+        }
+
+        $templates = Template::where('user_id', Auth::id())->get();
+        if($templates){
+            $data['templates'] = $templates;
+        }
+
 
         return view('admin.messages.index', compact('data'));
     }
@@ -67,7 +79,36 @@ class MessageController extends Controller
 
         return response()->json($createdSession);
 
+    }
 
+    public function campaignDatatable()
+    {
+        $campaigns = Campaign::where('user_id', Auth::id())->get();
+
+        return DataTables::of($campaigns)
+            ->addColumn('action', function ($campaign) {
+                return view('admin.messages._action_blast', compact('campaign'))->render();
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'contact_id' => 'required',
+            'template_id' => 'required',
+        ]);
+
+        Campaign::create([
+            'nama'          => $request->name,
+            'contact_id'    => $request->contact_id,
+            'template_id'   => $request->template_id,
+            'user_id'       => auth()->id(),
+        ]);
+
+        return redirect()->route('messages.index')->with('success', 'Campaign berhasil ditambahkan.');
     }
 
 }

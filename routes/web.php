@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     //Menu Messages
     Route::resource('messages', MessageController::class);
     Route::post('direct-message', [MessageController::class, 'directMessage'])->name('messages.directMessage');
+    Route::get('/admin/messages/blast/datatable', [MessageController::class, 'campaignDatatable'])->name('messages.campaignDatatable');
+    
 
     //Menu Transactions
     Route::resource('transactions', TransactionController::class);
