@@ -148,6 +148,80 @@
             ]
         });
     });
+
+    function openAddCampaignModal() {
+        // Set action & method for ADD
+        $('#campaignForm').attr('action', '{{ route('messages.campaignStore') }}');
+        $('#formMethod').val('POST');
+        $('#campaignModalLabel').text('Tambah Campaign');
+        $('#submitCampaignBtn').text('Simpan');
+
+        // Kosongkan field
+        $('#campaigntName').val('');
+        $('#selectContact').val('');
+        $('#selectTemplate').val('');
+
+        // Tampilkan modal
+        $('#campaignModal').modal('show');
+    }
+
+    function openEditCampaigModal(id) {
+        // Set action & method for EDIT
+
+        let nama    = document.getElementById('nama_' + id).value;
+        let contact_id = document.getElementById('contact_' + id).value;
+        let template_id = document.getElementById('template_' + id).value;
+        let url = '{{ route("messages.campaignUpdate", ":id") }}'.replace(':id', id);
+        console.log(url)
+        $('#campaignForm').attr('action', url);
+        $('#formMethod').val('PUT');
+        $('#campaignModalLabel').text('Edit Campaign');
+        $('#submitCampaignBtn').text('Update');
+        
+        // Isi field
+        $('#campaigntName').val(nama);
+        $('#selectContact').val(contact_id);
+        $('#selectTemplate').val(template_id);
+        // Tampilkan modal
+        $('#campaignModal').modal('show');
+    }
+    
+    function blastCampaign(button) {
+    const id = button.dataset.id;
+    const name = button.dataset.name;
+    const contact_id = button.dataset.contact;
+    const template_id = button.dataset.template;
+    
+    if (confirm(`Yakin ingin blast campaign "${name}"?`)) {
+        // Kirim ke route menggunakan fetch
+        fetch(`/campaign/blast/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                contact_id: contact_id,
+                template_id: template_id,
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status == 201){
+                alert(data.message || 'Blast berhasil!');
+            }else{
+                console.log(data)
+                alert('Gagal Blast Pesan -> '+data.body.error);
+            }
+            
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Terjadi kesalahan saat blast campaign.');
+        });
+    }
+}
+
 </script>
 
 @endsection

@@ -61,6 +61,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('messages', MessageController::class);
     Route::post('direct-message', [MessageController::class, 'directMessage'])->name('messages.directMessage');
     Route::get('/admin/messages/blast/datatable', [MessageController::class, 'campaignDatatable'])->name('messages.campaignDatatable');
+    Route::post('campaign/save', [MessageController::class, 'campaignStore'])->name('messages.campaignStore');
+    Route::put('campaign/edit/{campaign_id}', [MessageController::class, 'campaignUpdate'])->name('messages.campaignUpdate');
+    Route::delete('campaign/delete/{campaign_id}', [MessageController::class, 'campaignDestroy'])->name('messages.campaignDestroy');
+    Route::post('/campaign/blast/{id}', [MessageController::class, 'blastCampaign'])->name('messages.blastCampaign');
+
+    
+    
     
 
     //Menu Transactions

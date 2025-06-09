@@ -93,7 +93,7 @@ class MessageController extends Controller
             ->make(true);
     }
 
-    public function store(Request $request)
+    public function campaignStore(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -109,6 +109,76 @@ class MessageController extends Controller
         ]);
 
         return redirect()->route('messages.index')->with('success', 'Campaign berhasil ditambahkan.');
+    }
+
+    public function campaignUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'contact_id' => 'required',
+            'template_id' => 'required',
+        ]);
+
+
+        $campaign = Campaign::findOrFail($id);
+       
+        $campaign->update($request->only('nama', 'contact_id', 'template_id'));
+
+        return redirect()->route('messages.index')->with('success', 'Campaign berhasil diedit.');
+    }
+
+    public function campaignDestroy(Request $request, $id)
+    {
+        
+        $campaign = Campaign::findOrFail($id);
+        $campaign->delete();
+
+        return redirect()->route('messages.index')->with('success', 'Campaign berhasil dihapus.');
+    }
+
+    public function blastCampaign(Request $request, $id)
+    {
+        $contact_id = $request->contact_id;
+        $template_id = $request->template_id;
+
+        $template = Template::where('id', $template_id)->get();
+        
+        $phoneNumber = PhoneNumber::where('contact_id', $contact_id)->get();
+
+        $content = '';
+
+        if($template){
+            foreach($template as $key => $value){
+                $content = $value->content;
+            }
+        }
+        
+        if($phoneNumber && $template){
+            foreach($phoneNumber as $key => $value){
+                
+                $payload = [
+                    "chatId"                    => $value->number,
+                    "reply_to"                  => null,
+                    "text"                      => $content,
+                    "linkPreview"               => true,
+                    "linkPreviewHighQuality"    => false,
+                    "session"                   => auth()->user()->email
+                        
+                ];
+
+                $response = $this->nodeApi->post('/api/sendText', $payload);
+
+                $createdSession = [
+                    'status' => $response->status(),
+                    'body' => $response->json()
+                ];
+
+                sleep(2);
+            }
+        }
+
+        
+        return response()->json($createdSession);
     }
 
 }

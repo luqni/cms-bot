@@ -1,17 +1,7 @@
-
-
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-
-
 <h1 class="h3 mb-3">Campaign</h1>
 
 <!-- Tombol Trigger Modal -->
-<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCampaignModal">
+<button class="btn btn-primary mb-3" onclick="openAddCampaignModal()">
     + Tambah Campaign
 </button>
 
@@ -40,19 +30,20 @@
  
 
 <!-- Modal Tambah Campaign -->
-<div class="modal fade" id="addCampaignModal" tabindex="-1" aria-labelledby="addCampaignModalLabel" aria-hidden="true">
+<div class="modal fade" id="campaignModal" tabindex="-1" aria-labelledby="campaignModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('messages.store') }}" method="POST">
+        <form id="campaignForm" method="POST">
             @csrf
+            <input type="hidden" name="_method" id="formMethod" value="POST">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCampaignodalLabel">Tambah Campaign</h5>
+                    <h5 class="modal-title" id="campaignModalLabel">Tambah Campaign</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Nama Campaign</label>
-                        <input type="text" name="name" id="contactName" class="form-control" required>
+                        <input type="text" name="nama" id="campaigntName" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Contact</label>
@@ -75,7 +66,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Campaign</button>
+                    <button type="submit" class="btn btn-primary" id="submitCampaignBtn">Simpan Campaign</button>
                 </div>
             </div>
         </form>

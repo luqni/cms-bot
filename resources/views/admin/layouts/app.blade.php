@@ -24,6 +24,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
+<style>
+	#globalLoader {
+		transition: opacity 0.3s ease;
+	}
+</style>
+
 <body>
 	<div class="wrapper">
         @include('admin.layouts.sidebar')
@@ -34,11 +40,36 @@
             @include('admin.layouts.footer')
 		</div>
 	</div>
+
+	<!-- Global Loading Spinner -->
+	<div id="globalLoader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:1050;display:flex;justify-content:center;align-items:center;">
+		<div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
     
 	<script src="{{ asset('template/js/app.js') }}"></script>
 
 	<!-- Select2 JS -->
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	<script>
+		window.addEventListener('load', function () {
+			const loader = document.getElementById('globalLoader');
+			if (loader) {
+				loader.style.opacity = '0';
+				setTimeout(() => loader.style.display = 'none', 300);
+			}
+		});
+
+		function showLoader() {
+    		document.getElementById('globalLoader').style.display = 'flex';
+		}
+
+		function hideLoader() {
+			document.getElementById('globalLoader').style.display = 'none';
+		}
+	</script>
 
 </body>
 
