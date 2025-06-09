@@ -140,8 +140,6 @@
         $('#campaigns-table').DataTable({
             processing: true,
             serverSide: true,
-            autoWidth: false,
-    responsive: true, // jika kamu ingin tabel responsif
             ajax: '{{ route("messages.campaignDatatable") }}',
             columns: [
                 { data: 'id', name: 'id' },

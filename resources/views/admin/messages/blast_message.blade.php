@@ -1,45 +1,43 @@
-<main class="content">
-    <div class="container-fluid p-0">
-
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
 
-        <h1 class="h3 mb-3">Campaign</h1>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
-        <!-- Tombol Trigger Modal -->
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCampaignModal">
-            + Tambah Campaign
-        </button>
 
-        <div class="row">
-            <div class="col-12 col-lg-12 col-xxl-12 d-flex">
-                <div class="card flex-fill">
-                    <div class="card-header">
+<h1 class="h3 mb-3">Campaign</h1>
 
-                        <h5 class="card-title mb-0">List Campaign</h5>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="campaigns-table" class="table table-hover my-0" style="width: 100px;">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>        
-                        </table>
-                    </div>
-                </div>
+<!-- Tombol Trigger Modal -->
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCampaignModal">
+    + Tambah Campaign
+</button>
+
+<div class="row">
+    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+
+                <h5 class="card-title mb-0">List Campaign</h5>
+            </div>
+            <div class="table-responsive">
+                <table id="campaigns-table" class="table table-hover my-0" style="width: 100px;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>        
+                </table>
             </div>
         </div>
-
     </div>
-</main>
+</div>
+
+ 
 
 <!-- Modal Tambah Campaign -->
 <div class="modal fade" id="addCampaignModal" tabindex="-1" aria-labelledby="addCampaignModalLabel" aria-hidden="true">
