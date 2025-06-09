@@ -29,17 +29,18 @@
 
                         <h5 class="card-title mb-0">List Contact</h5>
                     </div>
-                    <table id="contacts-table" class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Count Number</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        
-                    </table>
+                    <div class="table-responsive">
+                        <table id="contacts-table" class="table table-hover my-0 table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Count Number</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>        
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

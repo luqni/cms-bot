@@ -24,18 +24,20 @@
 
                         <h5 class="card-title mb-0">List Transactions</h5>
                     </div>
-                    <table id="transactions-table" class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th class="d-none d-xl-table-cell">Phone Number</th>
-                                <th class="d-none d-xl-table-cell">Description</th>
-                                <th class="d-none d-xl-table-cell">Transaction Amount</th>
-                                <th class="d-none d-xl-table-cell">information</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="transactions-table" class="table table-hover my-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th class="d-none d-xl-table-cell">Phone Number</th>
+                                    <th class="d-none d-xl-table-cell">Description</th>
+                                    <th class="d-none d-xl-table-cell">Transaction Amount</th>
+                                    <th class="d-none d-xl-table-cell">information</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

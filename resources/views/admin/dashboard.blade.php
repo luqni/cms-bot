@@ -96,6 +96,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-6 col-xxl-5 d-flex">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Transaction Count</h5>
+                                </div>
+
+                                <div class="col-auto">
+                                    <div class="stat text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign align-middle"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1 class="mt-1 mb-3">$21.300</h1>
+                            <div class="mb-0">
+                                <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+                                <span class="text-muted">Since last week</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
