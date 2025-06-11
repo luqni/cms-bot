@@ -95,14 +95,9 @@ class MessageController extends Controller
 
     public function campaignStore(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'contact_id' => 'required',
-            'template_id' => 'required',
-        ]);
 
         Campaign::create([
-            'nama'          => $request->name,
+            'nama'          => $request->nama,
             'contact_id'    => $request->contact_id,
             'template_id'   => $request->template_id,
             'user_id'       => auth()->id(),
