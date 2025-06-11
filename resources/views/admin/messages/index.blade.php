@@ -208,7 +208,7 @@
         .then(res => res.json())
         .then(data => {
             if(data.status == 201){
-                alert(data.message || 'Blast berhasil!');
+                alert(data.message || 'Blast Campaign : '+name+'  berhasil!');
             }else{
                 console.log(data)
                 alert('Gagal Blast Pesan -> '+data.body.error);
