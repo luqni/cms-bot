@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\Facades\DataTables;
+use App\Services\SupabaseService;
 
 class TransactionController extends Controller
 {
@@ -34,13 +35,8 @@ class TransactionController extends Controller
     {
         $data = [];
 
-        $responseSupabase = Http::withHeaders([
-            'apikey' => env('SUPABASE_ANON_KEY'),
-            'Authorization' => 'Bearer ' . env('SUPABASE_ANON_KEY'),
-        ])->get(env('SUPABASE_URL') . '/rest/v1/transaction_detail', [
-            'select' => '*',
-            'session' => 'eq.'.auth()->user()->email
-        ]);
+        $responseSupabase = SupabaseService::get('transaction_detail', ['select' => '*',
+            'session' => 'eq.'.auth()->user()->email]);
 
         if($responseSupabase){
             $transaksi = $responseSupabase->json();

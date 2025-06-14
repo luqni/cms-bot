@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\NodeApiService;
 use Yajra\DataTables\Facades\DataTables;
+use App\Services\SupabaseService;
 
 class MessageController extends Controller
 {
@@ -43,6 +44,12 @@ class MessageController extends Controller
             $data['templates'] = $templates;
         }
 
+        $responseSupabase = SupabaseService::get('bot_settings', ['select' => '*',
+            'user_email' => 'eq.'.auth()->user()->email]);
+
+        if($responseSupabase){
+            $data['bot'] =  $responseSupabase->json();
+        }
 
         return view('admin.messages.index', compact('data'));
     }
@@ -174,6 +181,71 @@ class MessageController extends Controller
 
         
         return response()->json($createdSession);
+    }
+
+    public function setChatBot(Request $request)
+    {
+        
+        $dataInsert = [
+            'name'      => $request->nameBot,
+            'knowledge' => $request->knowledgeBot,
+            'user_email'=> auth()->user()->email,
+        ];
+
+        if($request->id){
+            
+            $filters = ['id' => 'eq.'.$request->id];
+            $dataUpdate = [$dataInsert ];
+
+            $response = SupabaseService::update('bot_settings', $filters, $dataUpdate);
+
+        }else{
+            $response = SupabaseService::insert('bot_settings', $dataInsert);
+        }
+
+        // https://n8n.oasis.my.id/webhook/469a91cd-9cfe-47b0-b897-ab93b131db14
+
+        $payload = [
+            "name" => auth()->user()->email,
+            "start" => true,
+            "config" => [
+                "proxy" => null,
+                "debug" => false,
+                "noweb" => [
+                    "store" => [
+                        "enabled" => true,
+                        "fullSync" => false
+                    ]
+                ],
+                "webhooks" => [
+                    [
+                        "url" => "https://n8n.oasis.my.id/webhook/469a91cd-9cfe-47b0-b897-ab93b131db14",
+                        "events" => [
+                            "message",
+                            "session.status"
+                        ],
+                        "hmac" => null,
+                        "retries" => null,
+                        "customHeaders" => null
+                    ]
+                ]
+            ]
+        ];
+
+        $responseUpdateSession = $this->nodeApi->put('/api/sessions/'.auth()->user()->email, $payload);
+
+        if ($response->successful() && $responseUpdateSession ) {
+            return response()->json([
+                'status'  => 200,
+                'message' => 'Data berhasil disimpan',
+            ]);
+        } else {
+            return response()->json([
+                'status'  => 500,
+                'message' => 'Gagal simpan',
+                'error' => $response->body()
+            ], $response->status());
+        }
     }
 
 }

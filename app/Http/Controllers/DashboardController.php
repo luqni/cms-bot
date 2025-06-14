@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\NodeApiService;
 use Illuminate\Support\Facades\Http;
+use App\Services\SupabaseService;
 
 class DashboardController extends Controller
 {
@@ -38,17 +39,17 @@ class DashboardController extends Controller
 
         $data['session'] = $getSessions;
 
-        $responseSupabase = Http::withHeaders([
-            'apikey' => env('SUPABASE_ANON_KEY'),
-            'Authorization' => 'Bearer ' . env('SUPABASE_ANON_KEY'),
-        ])->get(env('SUPABASE_URL') . '/rest/v1/transaction_detail', [
-            'select' => '*'
-        ]);
 
-        if($responseSupabase){
-            $transaksi = $responseSupabase->json();
-            $data['total_transaksi'] = count($transaksi);
+        $statusConnection = false;
+
+        if($getSessions['status'] === 200 && $getSessions['body']['status'] === 'WORKING'){
+            $statusConnection = true;
         }
+
+        $filters = ['email' => 'eq.'.auth()->user()->email];
+        $dataUpdate = ['status_connection' => $statusConnection];
+
+        $responseUpdateSupabase = SupabaseService::update('connection_users', $filters, $dataUpdate);
         
 
         return view('admin.dashboard', compact('data'));

@@ -9,19 +9,20 @@
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
         <div class="card flex-fill">
             <div class="card-header">
-
                 <h5 class="card-title mb-0">List Campaign</h5>
             </div>
-            <div class="table-responsive">
-                <table id="campaigns-table" class="table table-hover my-0" style="width: 100px;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>        
-                </table>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="campaigns-table" class="table table-hover my-0" style="width: 100px;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>        
+                    </table>
+                </div>
             </div>
         </div>
     </div>

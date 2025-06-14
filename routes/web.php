@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::put('campaign/edit/{campaign_id}', [MessageController::class, 'campaignUpdate'])->name('messages.campaignUpdate');
     Route::delete('campaign/delete/{campaign_id}', [MessageController::class, 'campaignDestroy'])->name('messages.campaignDestroy');
     Route::post('/campaign/blast/{id}', [MessageController::class, 'blastCampaign'])->name('messages.blastCampaign');
+    Route::post('/bot/setting', [MessageController::class, 'setChatBot'])->name('messages.setChatBot');
 
     
     

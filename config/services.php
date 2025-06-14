@@ -43,5 +43,8 @@ return [
         'api_key'   => env('API_KEY'),
     ],
 
-
+    'supabase' => [
+        'url'   => env('SUPABASE_URL'),
+        'key'   => env('SUPABASE_ANON_KEY'),
+    ]
 ];

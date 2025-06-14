@@ -53,16 +53,17 @@
                         </div>
 
                         <hr/>
-
-                        <button type="button" class="btn btn-primary btn-lg" onclick="kirimDirectMessage()" >
-                            Kirim
-                        </button>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="kirimDirectMessage()" >
+                                Kirim
+                            </button>
+                        </div>
                 </div>
                 <div class="tab-pane fade" id="nav-2" role="tabpanel" aria-labelledby="nav-profile-tab">
                     @include('admin.messages.blast_message')
                 </div>
                 <div class="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-contact-tab">
-                    <p><strong>This is feature on Progress.</strong></p>
+                    @include('admin.messages.bot_message')
                 </div>
             </div>
         </div>
