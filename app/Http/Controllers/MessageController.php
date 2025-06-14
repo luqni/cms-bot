@@ -51,6 +51,22 @@ class MessageController extends Controller
             $data['bot'] =  $responseSupabase->json();
         }
 
+        $responseGetSession = $this->nodeApi->get('/api/sessions/'.auth()->user()->email);
+
+        $getSessionWaApi = [
+            'status' => $responseGetSession->status(),
+            'body' => $responseGetSession->json()
+        ];
+
+
+        if($getSessionWaApi['status'] == 200){
+            $data['session_wa_api'] = $getSessionWaApi['body'];
+
+            $data['url_webhooks'] = $getSessionWaApi['body']['config']['webhooks'][0]['url'];
+        }
+
+        
+
         return view('admin.messages.index', compact('data'));
     }
 
@@ -246,6 +262,47 @@ class MessageController extends Controller
                 'error' => $response->body()
             ], $response->status());
         }
+    }
+
+    public function updateSessionWaApi(Request $request)
+    {
+
+        $webhooks = "https://webhook.site/11111111-1111-1111-1111-11111111";
+
+        if($request->status === "on"){
+            $webhooks = 'https://n8n.oasis.my.id/webhook/469a91cd-9cfe-47b0-b897-ab93b131db14';
+        }
+
+        $payload = [
+            "name" => auth()->user()->email,
+            "start" => true,
+            "config" => [
+                "proxy" => null,
+                "debug" => false,
+                "noweb" => [
+                    "store" => [
+                        "enabled" => true,
+                        "fullSync" => false
+                    ]
+                ],
+                "webhooks" => [
+                    [
+                        "url" => $webhooks,
+                        "events" => [
+                            "message",
+                            "session.status"
+                        ],
+                        "hmac" => null,
+                        "retries" => null,
+                        "customHeaders" => null
+                    ]
+                ]
+            ]
+        ];
+
+        $responseUpdateSession = $this->nodeApi->put('/api/sessions/'.auth()->user()->email, $payload);
+
+        return true;
     }
 
 }

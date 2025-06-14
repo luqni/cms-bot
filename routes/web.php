@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('campaign/delete/{campaign_id}', [MessageController::class, 'campaignDestroy'])->name('messages.campaignDestroy');
     Route::post('/campaign/blast/{id}', [MessageController::class, 'blastCampaign'])->name('messages.blastCampaign');
     Route::post('/bot/setting', [MessageController::class, 'setChatBot'])->name('messages.setChatBot');
+    Route::post('/update/session_wa_api', [MessageController::class, 'updateSessionWaApi'])->name('messages.updateSessionWaApi');
 
     
     

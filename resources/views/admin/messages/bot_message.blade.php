@@ -7,8 +7,18 @@
             </div>
             <div class="card-body">
                 <!-- <div class="container mt-5"> -->
+                    
                     <form class="row g-3 align-items-center">
                     <input type="hidden" id="id" name="id" class="form-control" value="{{ old('id', $data['bot'][0]['id'] ?? '') }}">
+                        <div class="row">
+                            <div class="col-auto">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Status Bot Aktif</label>
+                            </div>
+                            <div class="col-auto">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                            </div>
+                        </div>
+                        <hr/>
                         <div class="row">
                             <div class="col-auto">
                                 <label for="nama" class="col-form-label">Nama BOT </label>
@@ -45,7 +55,6 @@
         const knowledgeBot = document.getElementById('knowledge_bot').value;
         const id = document.getElementById('id').value;
 
-        console.log(nameBot+'---'+knowledgeBot)
         $.ajax({
             url: '{{ route("messages.setChatBot") }}', // Ganti dengan route yang sesuai
             type: 'POST',
@@ -63,6 +72,52 @@
                 console.log('Berhasil:', response);
                 if(response.status == 200){
                     
+                    location.reload();
+                }else{
+                    alert('Data gagal disimpan!');
+                    location.reload();
+                }
+                
+            },
+            error: function (xhr, status, error) {
+                console.error('Gagal:', xhr.responseText);
+                alert('Terjadi kesalahan saat menyimpan data.');
+            }
+        });
+    }
+
+    document.getElementById('flexSwitchCheckChecked').addEventListener('change', function() {
+        if (this.checked) {
+            updateSession("on");
+            console.log('Checkbox baru saja DICENTANG');
+        } else {
+            updateSession("off");
+            console.log('Checkbox baru saja DIBATALKAN');
+        }
+    });
+
+    const checkbox = document.getElementById('flexSwitchCheckChecked');
+    if(@json($data['url_webhooks']) === "https://webhook.site/11111111-1111-1111-1111-11111111"){
+        checkbox.checked = false;
+    }else{
+        checkbox.checked = true;
+    }
+
+    function updateSession(status){
+        $.ajax({
+            url: '{{ route("messages.updateSessionWaApi") }}', // Ganti dengan route yang sesuai
+            type: 'POST',
+            data: {
+                status,
+                _token: '{{ csrf_token() }}'
+            },
+            beforeSend: function () {
+                // Tampilkan loading jika perlu
+                console.log('Mengirim...');
+            },
+            success: function (response) {
+                console.log('Berhasil:', response);
+                if(response){
                     location.reload();
                 }else{
                     alert('Data gagal disimpan!');
