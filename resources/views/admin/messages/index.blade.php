@@ -8,7 +8,9 @@
     width: 100% !important;
 }
 </style>
+
 <main class="content">
+@include('admin.partials.loading')
     <div class="container-fluid p-0">
 
     @if(session('success'))
@@ -32,11 +34,7 @@
             </nav>
 
             <div class="tab-content p-3 border bg-light" id="nav-tabContent">
-                <div class="tab-pane fade active show" id="nav-1" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <!-- <p><strong>This is some placeholder content the Home tab's associated content.</strong>
-                        Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps
-                        classes to control the content visibility and styling. You can use it with tabs, pills, and any
-                        other <code>.nav</code>-powered navigation.</p> -->
+                <div class="tab-pane fade active show" id="nav-1" role="tabpanel" aria-labelledby="nav-home-tab" >
                         <div class="row">
                             <label for="contactName" class="form-label">Pilih Kontak</label>
                             <select id="mySelect" class="form-control" name="contact_id">
@@ -77,6 +75,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <script>
+     window.addEventListener('load', function() {
+        document.getElementById('loadingSpinner').style.display = 'none';
+    });
 
     // Auto-close alert setelah 5 detik
     setTimeout(() => {
@@ -101,7 +102,7 @@
     function kirimDirectMessage() {
         const contactNumber = document.getElementById('mySelect').value;
         const message = document.getElementById('direct_message').value;
-
+        
         if (!contactNumber || !message) {
             alert('Silakan isi semua field.');
             return;
@@ -117,20 +118,24 @@
             },
             beforeSend: function () {
                 // Tampilkan loading jika perlu
+                document.getElementById('loadingSpinner').style.display = 'flex';
                 console.log('Mengirim...');
             },
             success: function (response) {
                 console.log('Berhasil:', response);
                 if(response.status == 201){
                     alert('Pesan berhasil dikirim!');
+                    document.getElementById('loadingSpinner').style.display = 'none';
                 }else{
                     alert('Pesan gagal dikirim!');
+                    document.getElementById('loadingSpinner').style.display = 'none';
                 }
                 
             },
             error: function (xhr, status, error) {
                 console.error('Gagal:', xhr.responseText);
                 alert('Terjadi kesalahan saat mengirim pesan.');
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
         });
 
@@ -194,6 +199,7 @@
     const template_id = button.dataset.template;
     
     if (confirm(`Yakin ingin blast campaign "${name}"?`)) {
+        document.getElementById('loadingSpinner').style.display = 'flex';
         // Kirim ke route menggunakan fetch
         fetch(`/campaign/blast/${id}`, {
             method: 'POST',
@@ -210,15 +216,18 @@
         .then(data => {
             if(data.status == 201){
                 alert(data.message || 'Blast Campaign : '+name+'  berhasil!');
+                document.getElementById('loadingSpinner').style.display = 'none';
             }else{
                 console.log(data)
                 alert('Gagal Blast Pesan -> '+data.body.error);
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
             
         })
         .catch(err => {
             console.error(err);
             alert('Terjadi kesalahan saat blast campaign.');
+            document.getElementById('loadingSpinner').style.display = 'none';
         });
     }
 }

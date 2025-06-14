@@ -5,11 +5,7 @@
 @section('content')
     <!-- <h1 class="h2">Admin Dashboard</h1>
     <p>Selamat datang, {{ auth()->user()->name }}!</p> -->
-    <div id="loadingSpinner" class="text-center my-3" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
+    @include('admin.partials.loading')
     <main class="content">
         <div class="container-fluid p-0">
 
@@ -96,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-xxl-5 d-flex">
+                <!-- <div class="col-xl-6 col-xxl-5 d-flex">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -117,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -125,27 +121,32 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         function createSession() {
+            document.getElementById('loadingSpinner').style.display = 'flex';
             $.ajax({
             url: "{{ route('dashboard.createSession') }}",   // ganti dengan URL API-mu
             method: 'GET',
             success: function(response) {
                 if(response.status == 201){
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }
                
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
             });
         }
 
         function getQrcode() {
+            document.getElementById('loadingSpinner').style.display = 'flex';
             $.ajax({
             url: "{{ route('dashboard.generateQrcodeWa') }}",   // ganti dengan URL API-mu
             method: 'GET',
             success: function(response) {
                 if(response.status == 200){
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     var imgTag = `<img id="qrImage" src="${response.qr_code}" alt="QR Code" />`;
 
                     // Sisipkan ke dalam div.image-qrcode
@@ -155,41 +156,46 @@
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
             });
         }
 
         function startSession() {
-
+            document.getElementById('loadingSpinner').style.display = 'flex';
             $.ajax({
             url: "{{ route('dashboard.startSession') }}",   // ganti dengan URL API-mu
             method: 'GET',
             success: function(response) {
-                if(response.status == 200){
+                if(response.status == 201){
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }
                
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
             },
 
             });
         }
 
         function reStartSession() {
-
+            document.getElementById('loadingSpinner').style.display = 'flex';
             $.ajax({
             url: "{{ route('dashboard.reStartSession') }}",   // ganti dengan URL API-mu
             method: 'GET',
             success: function(response) {
                 if(response.status == 201){
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }
                
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
             },
 
             });

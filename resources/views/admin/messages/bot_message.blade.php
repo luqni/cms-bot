@@ -54,7 +54,7 @@
         const nameBot = document.getElementById('name_bot').value;
         const knowledgeBot = document.getElementById('knowledge_bot').value;
         const id = document.getElementById('id').value;
-
+        document.getElementById('loadingSpinner').style.display = 'flex';
         $.ajax({
             url: '{{ route("messages.setChatBot") }}', // Ganti dengan route yang sesuai
             type: 'POST',
@@ -66,15 +66,17 @@
             },
             beforeSend: function () {
                 // Tampilkan loading jika perlu
+                document.getElementById('loadingSpinner').style.display = 'flex';
                 console.log('Mengirim...');
             },
             success: function (response) {
                 console.log('Berhasil:', response);
                 if(response.status == 200){
-                    
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }else{
                     alert('Data gagal disimpan!');
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }
                 
@@ -82,6 +84,7 @@
             error: function (xhr, status, error) {
                 console.error('Gagal:', xhr.responseText);
                 alert('Terjadi kesalahan saat menyimpan data.');
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
         });
     }
@@ -104,6 +107,7 @@
     }
 
     function updateSession(status){
+        document.getElementById('loadingSpinner').style.display = 'flex';
         $.ajax({
             url: '{{ route("messages.updateSessionWaApi") }}', // Ganti dengan route yang sesuai
             type: 'POST',
@@ -113,14 +117,17 @@
             },
             beforeSend: function () {
                 // Tampilkan loading jika perlu
+                document.getElementById('loadingSpinner').style.display = 'flex';
                 console.log('Mengirim...');
             },
             success: function (response) {
                 console.log('Berhasil:', response);
                 if(response){
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }else{
                     alert('Data gagal disimpan!');
+                    document.getElementById('loadingSpinner').style.display = 'none';
                     location.reload();
                 }
                 
@@ -128,6 +135,7 @@
             error: function (xhr, status, error) {
                 console.error('Gagal:', xhr.responseText);
                 alert('Terjadi kesalahan saat menyimpan data.');
+                document.getElementById('loadingSpinner').style.display = 'none';
             }
         });
     }
