@@ -38,14 +38,19 @@
                         <div class="row">
                             <label class="col-form-label"><b>Import / Upload  Data Lengkap Produk </b></label>
                         </div>
-                        </div class="row">
+                        <div class="row">
                             <div class="col-auto">
                                 <label for="import" class="col-form-label"><b>Upload Data Excel</b></label>
                             </div>
                             <div class="col-auto">
-                            <input type="file" id="excelFile" name="excel_file" accept=".xlsx,.xls,.csv">
+                                <a href="{{ asset('sample/sample.xlsx') }}" download class="btn btn-sm btn-outline-primary">
+                                    Download Sample
+                                </a>
                             </div>
-                        <div>
+                            <div class="col-auto">
+                                <input type="file" id="excelFile" name="excel_file" accept=".xlsx,.xls,.csv">
+                            </div>
+                        </div>
 
                         </div>
                         <hr/>
