@@ -34,6 +34,10 @@
                             <div class="col-auto">
                                 <textarea class="form-control" id="knowledge_bot" name="knowledge_bot" rows="8" placeholder="Kamu adalah Asisten Pribadi...">{{ old('knowledge_bot', $data['bot'][0]['knowledge'] ?? '') }}</textarea>
                             </div>
+                        <hr/>
+                        <div class="row">
+                            <label class="col-form-label"><b>Import / Upload  Data Lengkap Produk </b></label>
+                        </div>
                         </div class="row">
                             <div class="col-auto">
                                 <label for="import" class="col-form-label"><b>Upload Data Excel</b></label>
