@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\NodeApiService;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\SupabaseService;
+use App\Services\GoogleDriveService;
 
 class MessageController extends Controller
 {
@@ -199,7 +200,7 @@ class MessageController extends Controller
         return response()->json($createdSession);
     }
 
-    public function setChatBot(Request $request)
+    public function setChatBot(Request $request, GoogleDriveService $drive)
     {
         
         $dataInsert = [
@@ -207,6 +208,34 @@ class MessageController extends Controller
             'knowledge' => $request->knowledgeBot,
             'user_email'=> auth()->user()->email,
         ];
+
+        $file = $request->file('excel_file');
+        $googleDriveFile = null;
+        
+
+        if ($file) {
+            // 1. Simpan sementara di local storage
+            $localPath = $file->getPathname(); // storage/app/temp_excel/
+           
+            // 2. Upload ke Google Drive
+            $fileName = $file->getClientOriginalName();
+            $mimeType = $file->getMimeType();
+    
+            $uploaded = $drive->uploadFile($localPath, $fileName, $mimeType);
+
+            $drive->setFilePermission($uploaded->id, auth()->user()->email);
+
+            // $drive->setFilePermission($uploaded->id, 'anyone'); untuk membuat file publik
+    
+            // 3. Simpan ke database
+            $dataInsert = array_merge($dataInsert, [
+                'file_name'      => $uploaded->name,
+                'gsheet_id'      => $uploaded->id,
+                'web_view_link'  => $uploaded->webViewLink,
+            ]);
+            
+
+        }
 
         if($request->id){
             

@@ -21,7 +21,7 @@
                         <hr/>
                         <div class="row">
                             <div class="col-auto">
-                                <label for="nama" class="col-form-label">Nama BOT </label>
+                                <label for="nama" class="col-form-label"><b>Nama BOT</b></label>
                             </div>
                             <div class="col-auto">
                                 <input type="text" id="name_bot" name="name_bot" class="form-control" placeholder="Masukkan nama" value="{{ old('name_bot', $data['bot'][0]['name'] ?? '') }}">
@@ -29,11 +29,20 @@
                         </div>
                         <div row="row">
                             <div class="col-auto">
-                                <label for="instruksi" class="col-form-label">Instruksi </label>
+                                <label for="instruksi" class="col-form-label"><b>Instruksi</b></label>
                             </div>
                             <div class="col-auto">
                                 <textarea class="form-control" id="knowledge_bot" name="knowledge_bot" rows="8" placeholder="Kamu adalah Asisten Pribadi...">{{ old('knowledge_bot', $data['bot'][0]['knowledge'] ?? '') }}</textarea>
                             </div>
+                        </div class="row">
+                            <div class="col-auto">
+                                <label for="import" class="col-form-label"><b>Upload Data Excel</b></label>
+                            </div>
+                            <div class="col-auto">
+                            <input type="file" id="excelFile" name="excel_file" accept=".xlsx,.xls,.csv">
+                            </div>
+                        <div>
+
                         </div>
                         <hr/>
                         <div class="row">
@@ -54,16 +63,26 @@
         const nameBot = document.getElementById('name_bot').value;
         const knowledgeBot = document.getElementById('knowledge_bot').value;
         const id = document.getElementById('id').value;
+        const excelFile = document.getElementById('excelFile').files[0];
         document.getElementById('loadingSpinner').style.display = 'flex';
+
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('nameBot', nameBot);
+        formData.append('knowledgeBot', knowledgeBot);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Tambahkan file jika dipilih
+        if (excelFile) {
+            formData.append('excel_file', excelFile);
+        }
+
         $.ajax({
             url: '{{ route("messages.setChatBot") }}', // Ganti dengan route yang sesuai
             type: 'POST',
-            data: {
-                id,
-                nameBot,
-                knowledgeBot,
-                _token: '{{ csrf_token() }}'
-            },
+            data: formData,
+            contentType: false,
+            processData: false,
             beforeSend: function () {
                 // Tampilkan loading jika perlu
                 document.getElementById('loadingSpinner').style.display = 'flex';
